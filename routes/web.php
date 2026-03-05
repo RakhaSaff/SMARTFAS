@@ -10,9 +10,19 @@ Route::get('/', [DashboardController::class, 'index'])->name('home');
 Route::get('/laporan/create', fn() => view('laporan.create'))
     ->name('laporan.create');
 
-// Route sementara login & register (fix error route login)
-Route::get('/login', fn() => view('auth.login'))->name('login');   // nanti ganti dengan Breeze
-Route::get('/register', fn() => view('auth.register'))->name('register');
+// Halaman Login & Register (GET)
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+
+// Proses autentikasi (POST)
+Route::post('/login', [LoginController::class, 'login']);
+Route::post('/register', [RegisterController::class, 'register']);
 
 // Dashboard setelah login (bisa diubah nanti)
 Route::get('/dashboard', fn() => view('dashboard.index'))->name('dashboard');
+
+
+
+Route::get('/register', function () {
+    return view('auth.register');
+})->name('register');
