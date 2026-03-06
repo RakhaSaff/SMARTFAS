@@ -113,12 +113,10 @@
                 <a href="{{ route('register') }}" class="text-orange-600 hover:underline font-medium">Daftar di sini</a>
             </div>
 
-            <!-- Opsional: Lupa password (jika sudah ada fitur reset) -->
-            <!-- <div class="text-center mt-3 text-sm">
-                <a href="{{ route('password.request') }}" class="text-orange-600 hover:underline">
-                    Lupa password?
-                </a>
-            </div> -->
+<!-- Lupa password? (fitur belum aktif) -->
+            <div class="text-center mt-3 text-sm text-gray-500">
+    Lupa password? Hubungi admin.
+            </div>
         </form>
     </div>
 </div>
