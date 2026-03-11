@@ -38,10 +38,26 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'users',     // ini untuk user mahasiswa/dosen biasa
+        ],
+
+        'admin' => [                   // guard khusus admin
+            'driver' => 'session',
+            'provider' => 'admins',    // harus 'admins' (jamak), sesuai key di providers
         ],
     ],
 
+    'providers' => [
+        'users' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\User::class,
+        ],
+
+        'admins' => [                  // ini yang hilang atau salah ketik
+            'driver' => 'eloquent',
+            'model' => App\Models\Admin::class,
+        ],
+    ],
     /*
     |--------------------------------------------------------------------------
     | User Providers
@@ -59,17 +75,13 @@ return [
     |
     */
 
-    'providers' => [
-        'users' => [
-            'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', App\Models\User::class),
-        ],
+
 
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
-    ],
+
 
     /*
     |--------------------------------------------------------------------------
