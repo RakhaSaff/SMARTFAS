@@ -36,7 +36,8 @@
     .btn-primary:hover .arrow {
         transform: translateX(8px);
     }
-        @keyframes floatBlob1 {
+
+    @keyframes floatBlob1 {
         0%, 100% { transform: translateY(0px) scale(1); }
         50%       { transform: translateY(-20px) scale(1.05); }
     }
@@ -52,17 +53,16 @@
     .blob-1 { animation: floatBlob1 6s ease-in-out infinite; }
     .blob-2 { animation: floatBlob2 7s ease-in-out infinite; }
     .blob-3 { animation: floatBlob3 8s ease-in-out infinite; }
-
 </style>
 
-{{-- WRAPPER UTAMA: background foto ada di sini, mengalir dari hero sampai footer --}}
+{{-- WRAPPER UTAMA --}}
 <div class="relative w-full"
      style="background-image: url('{{ asset('images/saintek_uinsa.jpg') }}');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;">
 
-        {{-- Overlay gradasi hijau → orange: dipindah ke sini, mencakup hero + footer --}}
+    {{-- Overlay gradasi --}}
     <div class="absolute inset-0"
          style="background: linear-gradient(135deg,
                     rgba(7,172,125,0.69)  0%,
@@ -89,6 +89,7 @@
             style="top:50%;left:50%;transform:translate(-50%,-50%);
                     width:700px;height:400px;
                     background:rgba(255,255,255,0.04);filter:blur(80px);"></div>
+
         {{-- Konten hero --}}
         <div class="relative z-10 max-w-5xl mx-auto px-6 lg:px-8 text-center text-white"
              style="filter:drop-shadow(0 4px 16px rgba(0,0,0,0.3));">
@@ -127,19 +128,19 @@
                 <div class="fade-up-4"
                      style="display:flex;flex-wrap:wrap;justify-content:center;gap:1.5rem;margin-bottom:4rem;">
 
-                    <a href="#" class="btn-primary"
+                    <a href="{{ route('laporan.create') }}" class="btn-primary"
                        style="display:inline-flex;align-items:center;justify-content:center;
                               padding:1.2rem 3rem;background:white;color:#064e3b;
                               font-weight:800;font-size:1.1rem;border-radius:9999px;
                               box-shadow:0 8px 32px rgba(0,0,0,0.2);text-decoration:none;
                               transition:all 0.2s;"
-                       onmouseover="this.style.background='#e4870d';this.style.transform='translateY(-3px)';"
-                       onmouseout="this.style.background='white';this.style.transform='translateY(0)';">
+                       onmouseover="this.style.background='#e4870d';this.style.color='white';this.style.transform='translateY(-3px)';"
+                       onmouseout="this.style.background='white';this.style.color='#064e3b';this.style.transform='translateY(0)';">
                         LAPORKAN KERUSAKAN
                         <span class="arrow" style="margin-left:0.75rem;font-size:1.25rem;">→</span>
                     </a>
 
-                    <a href="#"
+                    <a href="{{ route('panduan') }}"
                        style="display:inline-flex;align-items:center;justify-content:center;
                               padding:1.2rem 3rem;background:rgba(255,255,255,0.18);
                               backdrop-filter:blur(12px);border:2px solid white;color:white;
@@ -151,7 +152,7 @@
                     </a>
                 </div>
 
-                <!-- Trust icons -->
+                <!-- Trust icon (hanya Foto via Android) -->
                 <div class="fade-up-5"
                      style="display:flex;flex-wrap:wrap;justify-content:center;gap:1.5rem;">
 
@@ -166,37 +167,26 @@
                         <span style="font-weight:600;">Foto via Android</span>
                     </div>
 
-                    <div style="display:flex;align-items:center;gap:1rem;
-                                background:rgba(255,255,255,0.18);backdrop-filter:blur(8px);
-                                padding:1rem 1.5rem;border-radius:0.875rem;
-                                box-shadow:0 4px 16px rgba(0,0,0,0.12);">
-                        <div style="width:3.5rem;height:3.5rem;border-radius:0.75rem;
-                                    background:#d97706;display:flex;align-items:center;
-                                    justify-content:center;font-size:1.75rem;
-                                    box-shadow:0 2px 8px rgba(0,0,0,0.2);">🛠️</div>
-                        <span style="font-weight:600;">Proses Cepat + AI</span>
-                    </div>
-
                 </div>
+
             </div>
         </div>
 
     </section>
     {{-- ===== END HERO ===== --}}
 
-    {{-- Footer menyambung di dalam wrapper yang sama, foto background mengalir terus --}}
+    {{-- Footer --}}
     @include('partials.footer')
 
 </div>
 {{-- END WRAPPER UTAMA --}}
+
 <script>
     window.addEventListener('scroll', () => {
         const scrollY = window.scrollY;
-
         const blob1 = document.getElementById('blob1');
         const blob2 = document.getElementById('blob2');
         const blob3 = document.getElementById('blob3');
-
         if (blob1) blob1.style.transform = `translateY(${scrollY * 0.25}px) scale(1)`;
         if (blob2) blob2.style.transform = `translateY(${scrollY * 0.15}px) scale(1)`;
         if (blob3) blob3.style.transform = `translate(-50%, calc(-50% + ${scrollY * 0.2}px)) scale(1)`;

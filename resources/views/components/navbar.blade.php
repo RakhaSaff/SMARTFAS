@@ -1,73 +1,66 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-200 fixed w-full z-50 shadow-sm">
-    <div class="max-w-screen-lg mx-auto px-8 sm:px-12 lg:px-16">
-<div class="flex items-center h-16 gap-8 lg:gap-10">
+<nav x-data="{ open: false }" style="background:white; border-bottom:1px solid #e5e7eb; position:fixed; width:100%; z-index:50; box-shadow:0 1px 3px rgba(0,0,0,0.08);">
+    <div style="display:flex; align-items:center; height:64px; width:100%; padding-left:24px; padding-right:32px;">
 
-    <!-- Logo (tetap kiri) -->
-    <a href="{{ route('home') }}" class="flex items-center gap-3 flex-shrink-0">
-        <div class="w-10 h-10 bg-emerald-700 rounded-xl flex items-center justify-center text-white font-bold text-2xl shadow-md">
-            S
+        <!-- Logo -->
+        <a href="{{ route('home') }}" style="display:flex; align-items:center; gap:10px; text-decoration:none; flex-shrink:0;">
+            <div style="width:32px; height:32px; background:#047857; border-radius:8px; display:flex; align-items:center; justify-content:center; color:white; font-weight:700; font-size:1rem;">
+                S
+            </div>
+            <div style="font-weight:700; font-size:1.1rem; white-space:nowrap;">
+                <span style="color:#111827;">SMARTFAS</span>
+                <span style="color:#047857;"> Saintek</span>
+            </div>
+        </a>
+
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex" style="align-items:center; gap:24px; font-size:0.875rem; font-weight:500; margin-left:auto; margin-right:48px;">
+            <a href="{{ route('home') }}" style="color:#374151; text-decoration:none; white-space:nowrap;" onmouseover="this.style.color='#047857'" onmouseout="this.style.color='#374151'">Beranda</a>
+            <a href="{{ route('laporan.create') }}" style="color:#374151; text-decoration:none; white-space:nowrap;" onmouseover="this.style.color='#047857'" onmouseout="this.style.color='#374151'">Laporkan Kerusakan</a>
+            <a href="#" style="color:#374151; text-decoration:none; white-space:nowrap;" onmouseover="this.style.color='#047857'" onmouseout="this.style.color='#374151'">Status Laporan</a>
+            <a href="#" style="color:#374151; text-decoration:none; white-space:nowrap;" onmouseover="this.style.color='#047857'" onmouseout="this.style.color='#374151'">Monitoring</a>
+
+            <!-- INI SUDAH DIPERBAIKI -->
+            <a href="{{ route('panduan') }}" style="color:#374151; text-decoration:none; white-space:nowrap;" onmouseover="this.style.color='#047857'" onmouseout="this.style.color='#374151'">Panduan</a>
         </div>
-        <div class="font-bold text-xl md:text-2xl tracking-tight">
-            <span class="text-gray-900">SMARTFAS</span>
-            <span class="text-emerald-700">Saintek</span>
+
+        <!-- Auth Buttons -->
+        <div class="hidden md:flex" style="align-items:center; gap:12px; flex-shrink:0;">
+            <a href="{{ route('login') }}" style="color:#374151; font-weight:600; font-size:0.875rem; text-decoration:none; white-space:nowrap;" onmouseover="this.style.color='#047857'" onmouseout="this.style.color='#374151'">
+                Masuk
+            </a>
+            <a href="{{ route('register') }}" style="padding:8px 20px; background:#047857; color:white; font-weight:600; font-size:0.875rem; border-radius:8px; text-decoration:none; white-space:nowrap; box-shadow:0 2px 6px rgba(0,0,0,0.15);" onmouseover="this.style.background='#065f46'" onmouseout="this.style.background='#047857'">
+                Daftar
+            </a>
         </div>
-    </a>
 
-    <!-- Spacer: mendorong menu + auth ke kanan -->
-    <div class="flex-1"></div>
+        <!-- Hamburger (mobile) -->
+        <button @click="open = !open" class="md:hidden" style="margin-left:auto; background:none; border:none; font-size:1.5rem; color:#374151; cursor:pointer;">
+            <i class="fa-solid" :class="open ? 'fa-xmark' : 'fa-bars'"></i>
+        </button>
 
-    <!-- Desktop Menu -->
-    <div class="hidden md:flex items-center gap-8 lg:gap-10 xl:gap-12 text-base font-medium text-gray-800">
-        <a href="{{ route('home') }}" class="hover:text-emerald-700 transition-colors duration-200">Beranda</a>
-        <a href="{{ route('laporan.create') }}" class="hover:text-emerald-700 transition-colors duration-200">Laporkan Kerusakan</a>
-        <a href="#" class="hover:text-emerald-700 transition-colors duration-200">Status Laporan</a>
-        <a href="#" class="hover:text-emerald-700 transition-colors duration-200">Monitoring</a>
-        <a href="#" class="hover:text-emerald-700 transition-colors duration-200">Panduan</a>
     </div>
 
-    <!-- Auth Buttons -->
-    <div class="hidden md:flex items-center gap-4 lg:gap-6">
-        <a href="{{ route('login') }}"
-           class="px-6 py-2.5 text-gray-700 hover:text-emerald-700 font-semibold transition-colors duration-200 text-base">
-            Masuk
-        </a>
-        <a href="{{ route('register') }}"
-           class="px-8 py-3 bg-emerald-700 hover:bg-emerald-800 text-white font-semibold rounded-xl shadow-md transition-all duration-200 hover:shadow-lg text-base">
-            Daftar
-        </a>
-    </div>
-
-    <!-- Hamburger (mobile) -->
-    <button @click="open = !open" class="md:hidden text-gray-700 text-2xl focus:outline-none focus:text-emerald-700">
-        <i class="fa-solid" :class="open ? 'fa-xmark' : 'fa-bars'"></i>
-    </button>
-
-</div>
-
-    <!-- Mobile Menu - tetap sama, tapi bisa ditambah padding jika perlu -->
+    <!-- Mobile Menu -->
     <div x-show="open"
          x-transition:enter="transition ease-out duration-200"
-         x-transition:enter-start="opacity-0 scale-95"
-         x-transition:enter-end="opacity-100 scale-100"
+         x-transition:enter-start="opacity-0"
+         x-transition:enter-end="opacity-100"
          x-transition:leave="transition ease-in duration-150"
-         x-transition:leave-start="opacity-100 scale-100"
-         x-transition:leave-end="opacity-0 scale-95"
-         class="md:hidden bg-white border-t shadow-lg">
-        <div class="px-6 py-8 space-y-6 text-base font-medium text-gray-800">
-            <a href="{{ route('home') }}" class="block hover:text-emerald-700 transition">Beranda</a>
-            <a href="{{ route('laporan.create') }}" class="block hover:text-emerald-700 transition">Laporkan Kerusakan</a>
-            <a href="#" class="block hover:text-emerald-700 transition">Status Laporan</a>
-            <a href="#" class="block hover:text-emerald-700 transition">Monitoring</a>
-            <a href="#" class="block hover:text-emerald-700 transition">Panduan</a>
-            <div class="pt-6 border-t space-y-4">
-                <a href="{{ route('login') }}"
-                   class="block text-center py-3 text-gray-700 font-semibold hover:text-emerald-700 transition">
-                    Masuk
-                </a>
-                <a href="{{ route('register') }}"
-                   class="block text-center py-3 bg-emerald-700 text-white font-semibold rounded-xl hover:bg-emerald-800 transition">
-                    Daftar
-                </a>
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0"
+         style="background:white; border-top:1px solid #e5e7eb; box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+        <div style="padding:24px; display:flex; flex-direction:column; gap:20px; font-size:1rem; font-weight:500; color:#1f2937;">
+            <a href="{{ route('home') }}" style="color:#1f2937; text-decoration:none;">Beranda</a>
+            <a href="{{ route('laporan.create') }}" style="color:#1f2937; text-decoration:none;">Laporkan Kerusakan</a>
+            <a href="#" style="color:#1f2937; text-decoration:none;">Status Laporan</a>
+            <a href="#" style="color:#1f2937; text-decoration:none;">Monitoring</a>
+
+            <!-- INI JUGA SUDAH DIPERBAIKI -->
+            <a href="{{ route('panduan') }}" style="color:#1f2937; text-decoration:none;">Panduan</a>
+
+            <div style="padding-top:16px; border-top:1px solid #e5e7eb; display:flex; flex-direction:column; gap:12px;">
+                <a href="{{ route('login') }}" style="display:block; text-align:center; padding:12px; color:#374151; font-weight:600; text-decoration:none;">Masuk</a>
+                <a href="{{ route('register') }}" style="display:block; text-align:center; padding:12px; background:#047857; color:white; font-weight:600; border-radius:8px; text-decoration:none;">Daftar</a>
             </div>
         </div>
     </div>
