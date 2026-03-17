@@ -42,19 +42,34 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::middleware('auth:admin')->group(function () {
         Route::post('/logout', [App\Http\Controllers\Admin\Auth\LoginController::class, 'logout'])->name('logout');
         Route::get('/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
+
+        // Laporan Masuk
+        Route::get('/laporan-masuk', [App\Http\Controllers\Admin\LaporanMasukController::class, 'index'])->name('laporan-masuk');
+        Route::get('/laporan-masuk/{id}', [App\Http\Controllers\Admin\LaporanMasukController::class, 'show'])->name('laporan-masuk.show');
+        Route::patch('/laporan-masuk/{id}/verifikasi', [App\Http\Controllers\Admin\LaporanMasukController::class, 'verifikasi'])->name('laporan-masuk.verifikasi');
+
+        // Perlu Diverifikasi
+        Route::get('/perlu-verifikasi', [App\Http\Controllers\Admin\VerifikasiController::class, 'index'])->name('perlu-verifikasi');
+        Route::patch('/perlu-verifikasi/{id}/proses', [App\Http\Controllers\Admin\VerifikasiController::class, 'proses'])->name('perlu-verifikasi.proses');
+
+        // Manajemen Perbaikan
+        Route::get('/manajemen-perbaikan', [App\Http\Controllers\Admin\ManajemenPerbaikanController::class, 'index'])->name('manajemen-perbaikan');
+        Route::patch('/manajemen-perbaikan/{id}/selesai', [App\Http\Controllers\Admin\ManajemenPerbaikanController::class, 'selesai'])->name('manajemen-perbaikan.selesai');
+        Route::post('/manajemen-perbaikan/{id}/perbaikan', [App\Http\Controllers\Admin\ManajemenPerbaikanController::class, 'storePerbaikan'])->name('manajemen-perbaikan.perbaikan');
     });
 });
 
 // ── Preview admin (development only) ──
 Route::get('/admin/preview-dashboard', function () {
-    $stats = [
-        'total_laporan' => 245,
-        'pending'       => 87,
-        'selesai'       => 158,
-    ];
     return view('admin.dashboard', [
-        'stats'      => $stats,
-        'admin_name' => 'Hilal (Mode Preview)',
-        'jabatan'    => 'Pengembang Sistem',
+        'totalLaporan'       => 245,
+        'perluVerifikasi'    => 87,
+        'sudahVerifikasi'    => 100,
+        'selesai'            => 58,
+        'laporanTerbaru'     => collect([]),
+        'chartVerifikasi'    => [10,15,20,8,12,18,22,15,10,14,18,20],
+        'chartBelumVerifikasi' => [5,8,12,4,6,9,11,7,5,7,9,10],
+        'dominanLabels'      => ['AC', 'Proyektor', 'Kursi', 'Lampu', 'Komputer'],
+        'dominanData'        => [32, 25, 18, 15, 10],
     ]);
 })->name('admin.preview-dashboard');

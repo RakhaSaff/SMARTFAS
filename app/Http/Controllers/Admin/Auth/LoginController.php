@@ -28,11 +28,11 @@ class LoginController extends Controller
         return back()->withErrors(['username' => 'Username atau password salah.']);
     }
 
-    public function logout(Request $request)
-    {
-        Auth::guard('admin')->logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-        return redirect('/admin/login');
-    }
+   public function logout(Request $request)
+{
+    Auth::guard('admin')->logout();
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+    return redirect()->route('login');
+}
 }

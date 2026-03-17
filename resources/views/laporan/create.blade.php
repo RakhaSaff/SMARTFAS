@@ -27,7 +27,6 @@
 
 body { font-family: 'DM Sans', sans-serif; background: #f0f5f2; }
 
-/* ── ANIMATIONS ── */
 @keyframes fadeSlideUp {
     from { opacity: 0; transform: translateY(28px); }
     to   { opacity: 1; transform: translateY(0); }
@@ -35,11 +34,9 @@ body { font-family: 'DM Sans', sans-serif; background: #f0f5f2; }
 .anim-breadcrumb  { animation: fadeSlideUp .5s ease both; animation-delay: .05s; }
 .anim-title       { animation: fadeSlideUp .55s ease both; animation-delay: .18s; }
 .anim-subtitle    { animation: fadeSlideUp .55s ease both; animation-delay: .30s; }
-.anim-steps       { animation: fadeSlideUp .55s ease both; animation-delay: .44s; }
 .anim-infobox     { animation: fadeSlideUp .5s ease both;  animation-delay: .55s; }
 .anim-formcard    { animation: fadeSlideUp .6s ease both;  animation-delay: .65s; }
 
-/* ── HERO BANNER ── */
 .hero-banner {
     background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-mid) 60%, #0d7a45 100%);
     padding: 90px 40px 40px;
@@ -95,40 +92,8 @@ body { font-family: 'DM Sans', sans-serif; background: #f0f5f2; }
     line-height: 1.6;
 }
 
-/* ── STEP INDICATOR ── */
-.step-indicator {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0;
-    margin-top: 28px;
-}
-.step { display: flex; align-items: center; gap: 8px; }
-.step-circle {
-    width: 30px; height: 30px;
-    border-radius: 50%;
-    display: grid;
-    place-items: center;
-    font-size: 0.78rem;
-    font-weight: 700;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    border: 2px solid rgba(255,255,255,0.3);
-    color: rgba(255,255,255,0.5);
-}
-.step.active .step-circle {
-    background: var(--orange);
-    border-color: var(--orange);
-    color: white;
-    box-shadow: 0 0 0 4px rgba(245,158,11,0.25);
-}
-.step-label { font-size: 0.75rem; font-weight: 600; color: rgba(255,255,255,0.5); white-space: nowrap; }
-.step.active .step-label { color: rgba(255,255,255,0.9); }
-.step-line { width: 40px; height: 2px; background: rgba(255,255,255,0.2); margin: 0 6px; }
-
-/* ── PAGE BODY ── */
 .page-body { max-width: 900px; margin: 0 auto; padding: 32px 20px 60px; }
 
-/* ── INFO BOX ── */
 .info-box {
     background: linear-gradient(135deg, rgba(22,163,74,0.07) 0%, rgba(15,107,62,0.04) 100%);
     border: 1px solid rgba(22,163,74,0.18);
@@ -141,7 +106,6 @@ body { font-family: 'DM Sans', sans-serif; background: #f0f5f2; }
 }
 .info-box p { font-size: 0.8rem; color: var(--green-dark); line-height: 1.5; margin: 0; }
 
-/* ── FORM CARD ── */
 .form-card { background: white; border-radius: var(--radius); box-shadow: var(--shadow-md); overflow: hidden; }
 .form-card-header {
     background: linear-gradient(90deg, var(--green-dark) 0%, var(--green-mid) 100%);
@@ -163,7 +127,6 @@ body { font-family: 'DM Sans', sans-serif; background: #f0f5f2; }
 .form-card-header p { font-size: 0.8rem; color: rgba(255,255,255,0.65); margin: 2px 0 0; }
 .form-card-body { padding: 28px; }
 
-/* ── FORM ELEMENTS ── */
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 20px; }
 .field:last-child { margin-bottom: 0; }
@@ -208,13 +171,9 @@ body { font-family: 'DM Sans', sans-serif; background: #f0f5f2; }
 .form-select-custom { padding-right: 34px; cursor: pointer; }
 textarea.form-control-custom { resize: vertical; min-height: 100px; line-height: 1.55; }
 
-/* ── PLACE SELECTOR ── */
 .place-selector { display: flex; flex-direction: column; gap: 8px; }
 
-/* ── PHOTO GRID ── */
 .photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 4px; }
-
-/* pakai label sebagai wrapper agar klik bisa trigger file input */
 .photo-slot {
     aspect-ratio: 1;
     border: 2px dashed var(--gray-200);
@@ -229,10 +188,7 @@ textarea.form-control-custom { resize: vertical; min-height: 100px; line-height:
 }
 .photo-slot:hover { border-color: var(--green-bright); background: rgba(22,163,74,0.04); }
 .photo-slot.has-file { border-style: solid; border-color: var(--green-bright); }
-
-/* sembunyikan input file asli, label yang jadi trigger */
 .photo-slot input[type="file"] { display: none; }
-
 .photo-slot .slot-icon { font-size: 1.5rem; line-height: 1; pointer-events: none; }
 .photo-slot .slot-label { font-size: 0.72rem; font-weight: 700; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.05em; font-family: 'Plus Jakarta Sans', sans-serif; pointer-events: none; }
 .photo-slot .slot-hint { font-size: 0.68rem; color: var(--gray-400); pointer-events: none; }
@@ -246,6 +202,7 @@ textarea.form-control-custom { resize: vertical; min-height: 100px; line-height:
     pointer-events: none;
 }
 .photo-slot:hover .preview-overlay { display: flex; }
+
 .check-badge {
     position: absolute; top: 6px; right: 6px;
     width: 20px; height: 20px;
@@ -256,10 +213,22 @@ textarea.form-control-custom { resize: vertical; min-height: 100px; line-height:
 }
 .photo-slot.has-file .check-badge { display: grid; }
 
-/* ── DIVIDER ── */
+.delete-btn {
+    position: absolute; top: 6px; left: 6px;
+    width: 24px; height: 24px;
+    background: #ef4444; border-radius: 50%;
+    display: none; place-items: center;
+    color: white; font-size: 0.75rem; font-weight: 700; z-index: 3;
+    cursor: pointer; border: none;
+    pointer-events: all;
+    box-shadow: 0 2px 6px rgba(239,68,68,0.4);
+    transition: all .2s;
+}
+.delete-btn:hover { background: #dc2626; transform: scale(1.1); }
+.photo-slot.has-file .delete-btn { display: grid; }
+
 .form-divider { height: 1px; background: var(--gray-100); margin: 24px 0; }
 
-/* ── FORM ACTIONS ── */
 .form-actions {
     display: flex;
     align-items: center;
@@ -301,8 +270,6 @@ textarea.form-control-custom { resize: vertical; min-height: 100px; line-height:
     .photo-grid { grid-template-columns: repeat(2, 1fr); }
     .form-actions { flex-direction: column; gap: 12px; }
     .btn-back-custom, .btn-submit-custom { width: 100%; justify-content: center; }
-    .step-line { width: 20px; }
-    .step-label { display: none; }
 }
 </style>
 @endpush
@@ -319,22 +286,6 @@ textarea.form-control-custom { resize: vertical; min-height: 100px; line-height:
     <div class="hero-content">
         <h1 class="anim-title">Laporkan <span>Kerusakan</span> Fasilitas</h1>
         <p class="anim-subtitle">Isi formulir berikut dengan lengkap dan akurat agar tim kami dapat segera menindaklanjuti perbaikan.</p>
-    </div>
-    <div class="step-indicator anim-steps">
-        <div class="step active">
-            <div class="step-circle">1</div>
-            <div class="step-label">Detail Kerusakan</div>
-        </div>
-        <div class="step-line"></div>
-        <div class="step">
-            <div class="step-circle">2</div>
-            <div class="step-label">Konfirmasi</div>
-        </div>
-        <div class="step-line"></div>
-        <div class="step">
-            <div class="step-circle">3</div>
-            <div class="step-label">Selesai</div>
-        </div>
     </div>
 </div>
 
@@ -439,8 +390,6 @@ textarea.form-control-custom { resize: vertical; min-height: 100px; line-height:
                                 </optgroup>
                             </select>
                         </div>
-
-                        {{-- Sub-lokasi (muncul kondisional) --}}
                         <div class="select-wrap" id="subLokasiWrap" style="display:none;">
                             <select name="sub_lokasi" id="subLokasi" class="form-select-custom">
                                 <option value="" disabled selected>— Pilih sub-lokasi —</option>
@@ -466,7 +415,6 @@ textarea.form-control-custom { resize: vertical; min-height: 100px; line-height:
                             ['id' => 'foto_depan',    'slot' => 'slot-depan',    'icon' => '⏩', 'label' => 'Depan'],
                             ['id' => 'foto_belakang', 'slot' => 'slot-belakang', 'icon' => '⏪', 'label' => 'Belakang'],
                         ] as $foto)
-                        {{-- Gunakan <label for="..."> sebagai wrapper agar klik otomatis trigger file picker --}}
                         <label for="{{ $foto['id'] }}" class="photo-slot" id="{{ $foto['slot'] }}">
                             <input type="file"
                                    name="{{ $foto['id'] }}"
@@ -477,6 +425,8 @@ textarea.form-control-custom { resize: vertical; min-height: 100px; line-height:
                             <span class="slot-label">{{ $foto['label'] }}</span>
                             <span class="slot-hint">Klik untuk unggah</span>
                             <div class="check-badge">✓</div>
+                            <button type="button" class="delete-btn"
+                                    onclick="hapusFoto(event,'{{ $foto['slot'] }}','{{ $foto['id'] }}')">✕</button>
                             <div class="preview-overlay">🔄 Ganti Foto</div>
                         </label>
                         @endforeach
@@ -521,101 +471,18 @@ textarea.form-control-custom { resize: vertical; min-height: 100px; line-height:
 @push('scripts')
 <script>
 const subLocs = {
-    // ── Laboratorium ──
-    lab_si: [
-        'Intelligent Systems Laboratory',
-        'Database Laboratory',
-        'IT Governance Laboratory',
-        'OS & Networking Laboratory',
-        'Programming Laboratory',
-        'Research Laboratory'
-    ],
-    lab_arsi: [
-        'Studio Perancangan Arsitektur',
-        'Studio Gambar / Komputasi',
-        'Ruang Maket'
-    ],
-    lab_kelautan: [
-        'Laboratorium Biokimia',
-        'Laboratorium Bioteknologi Laut',
-        'Laboratorium Survey Hidro-oseanografi'
-    ],
-    lab_sipil: [
-        'Civil Engineering Computer Laboratory',
-        'Concrete and Materials Laboratory',
-        'Hydrologi-Hydraulics Laboratory',
-        'Mapping and Risk Mitigation Laboratory',
-        'Soil and Geohydrology Laboratory',
-        'Studio and Design Laboratory',
-        'Structure Laboratory',
-        'Transportation Laboratory'
-    ],
-    lab_bio: [
-        'Genetic and Biomolecular Laboratory',
-        'Microbiology Laboratory',
-        'Plant Ecophysiology Laboratory',
-        'Animal Physiology Laboratory',
-        'Plant Cell and Tissue Culture Laboratory',
-        'Immunology, Cell and Tissue Culture Laboratory',
-        'Ecology & Bioconservation Laboratory',
-        'Biosystematic Laboratory'
-    ],
-    lab_matematika: [
-        'Modelling and Simulation Laboratory',
-        'Intelligent Computation and Vision Laboratory',
-        'Falaq Science',
-        'Operational Research Laboratory',
-        'Statistics Laboratory',
-        'Algebra and Analysis Laboratory'
-    ],
-    lab_tl: [
-        'Solid and Hazardous Waste Laboratory',
-        'Mapping and Modelling Laboratory',
-        'Sanitation and Remediation Laboratory',
-        'Environmental Chemistry Laboratory',
-        'Air Quality and Noise Laboratory',
-        'Environmental Workshop Laboratory',
-        'Water Quality and Processing Laboratory',
-        'Microbiology and Biotechnology Laboratory'
-    ],
-
-    // ── Ruang TA / Serbaguna ──
-    ruang_ta: [
-        'Ruang TA Lantai 1 Utara',
-        'Ruang TA/Serbaguna Lantai 2 Utara',
-        'Ruang TA/Serbaguna Lantai 2 Selatan',
-        'Ruang TA/Serbaguna Lantai 3 Utara',
-        'Ruang TA/Serbaguna Lantai 3 Selatan',
-        'Ruang TA/Serbaguna Lantai 4 Utara',
-        'Ruang TA/Serbaguna Lantai 4 Selatan',
-        'Ruang TA/Serbaguna Lantai 5 Utara',
-        'Ruang TA/Serbaguna Lantai 5 Tengah',
-        'Ruang TA/Serbaguna Lantai 5 Selatan'
-    ],
-
-    // ── Ruang Kelas per Lantai ──
-    ruang_kelas_6: [
-        'Ruang Kelas 6.1','Ruang Kelas 6.2','Ruang Kelas 6.3','Ruang Kelas 6.4',
-        'Ruang Kelas 6.5','Ruang Kelas 6.6','Ruang Kelas 6.7','Ruang Kelas 6.8',
-        'Ruang Kelas 6.9','Ruang Kelas 6.10','Ruang Kelas 6.11'
-    ],
-    ruang_kelas_7: [
-        'Ruang Kelas 7.1','Ruang Kelas 7.2','Ruang Kelas 7.3','Ruang Kelas 7.4',
-        'Ruang Kelas 7.5','Ruang Kelas 7.6','Ruang Kelas 7.7','Ruang Kelas 7.8',
-        'Ruang Kelas 7.9','Ruang Kelas 7.10','Ruang Kelas 7.11'
-    ],
-    ruang_kelas_8: [
-        'Ruang Kelas 8.1','Ruang Kelas 8.2','Ruang Kelas 8.3','Ruang Kelas 8.4',
-        'Ruang Kelas 8.5','Ruang Kelas 8.6','Ruang Kelas 8.7','Ruang Kelas 8.8',
-        'Ruang Kelas 8.9','Ruang Kelas 8.10','Ruang Kelas 8.11'
-    ],
-    ruang_kelas_9: [
-        'Ruang Kelas 9.1','Ruang Kelas 9.2','Ruang Kelas 9.3','Ruang Kelas 9.4',
-        'Ruang Kelas 9.5','Ruang Kelas 9.6','Ruang Kelas 9.7','Ruang Kelas 9.8',
-        'Ruang Kelas 9.9','Ruang Kelas 9.10','Ruang Kelas 9.11'
-    ],
-
-    // ── Toilet ──
+    lab_si: ['Intelligent Systems Laboratory','Database Laboratory','IT Governance Laboratory','OS & Networking Laboratory','Programming Laboratory','Research Laboratory'],
+    lab_arsi: ['Studio Perancangan Arsitektur','Studio Gambar / Komputasi','Ruang Maket'],
+    lab_kelautan: ['Laboratorium Biokimia','Laboratorium Bioteknologi Laut','Laboratorium Survey Hidro-oseanografi'],
+    lab_sipil: ['Civil Engineering Computer Laboratory','Concrete and Materials Laboratory','Hydrologi-Hydraulics Laboratory','Mapping and Risk Mitigation Laboratory','Soil and Geohydrology Laboratory','Studio and Design Laboratory','Structure Laboratory','Transportation Laboratory'],
+    lab_bio: ['Genetic and Biomolecular Laboratory','Microbiology Laboratory','Plant Ecophysiology Laboratory','Animal Physiology Laboratory','Plant Cell and Tissue Culture Laboratory','Immunology, Cell and Tissue Culture Laboratory','Ecology & Bioconservation Laboratory','Biosystematic Laboratory'],
+    lab_matematika: ['Modelling and Simulation Laboratory','Intelligent Computation and Vision Laboratory','Falaq Science','Operational Research Laboratory','Statistics Laboratory','Algebra and Analysis Laboratory'],
+    lab_tl: ['Solid and Hazardous Waste Laboratory','Mapping and Modelling Laboratory','Sanitation and Remediation Laboratory','Environmental Chemistry Laboratory','Air Quality and Noise Laboratory','Environmental Workshop Laboratory','Water Quality and Processing Laboratory','Microbiology and Biotechnology Laboratory'],
+    ruang_ta: ['Ruang TA Lantai 1 Utara','Ruang TA/Serbaguna Lantai 2 Utara','Ruang TA/Serbaguna Lantai 2 Selatan','Ruang TA/Serbaguna Lantai 3 Utara','Ruang TA/Serbaguna Lantai 3 Selatan','Ruang TA/Serbaguna Lantai 4 Utara','Ruang TA/Serbaguna Lantai 4 Selatan','Ruang TA/Serbaguna Lantai 5 Utara','Ruang TA/Serbaguna Lantai 5 Tengah','Ruang TA/Serbaguna Lantai 5 Selatan'],
+    ruang_kelas_6: ['Ruang Kelas 6.1','Ruang Kelas 6.2','Ruang Kelas 6.3','Ruang Kelas 6.4','Ruang Kelas 6.5','Ruang Kelas 6.6','Ruang Kelas 6.7','Ruang Kelas 6.8','Ruang Kelas 6.9','Ruang Kelas 6.10','Ruang Kelas 6.11'],
+    ruang_kelas_7: ['Ruang Kelas 7.1','Ruang Kelas 7.2','Ruang Kelas 7.3','Ruang Kelas 7.4','Ruang Kelas 7.5','Ruang Kelas 7.6','Ruang Kelas 7.7','Ruang Kelas 7.8','Ruang Kelas 7.9','Ruang Kelas 7.10','Ruang Kelas 7.11'],
+    ruang_kelas_8: ['Ruang Kelas 8.1','Ruang Kelas 8.2','Ruang Kelas 8.3','Ruang Kelas 8.4','Ruang Kelas 8.5','Ruang Kelas 8.6','Ruang Kelas 8.7','Ruang Kelas 8.8','Ruang Kelas 8.9','Ruang Kelas 8.10','Ruang Kelas 8.11'],
+    ruang_kelas_9: ['Ruang Kelas 9.1','Ruang Kelas 9.2','Ruang Kelas 9.3','Ruang Kelas 9.4','Ruang Kelas 9.5','Ruang Kelas 9.6','Ruang Kelas 9.7','Ruang Kelas 9.8','Ruang Kelas 9.9','Ruang Kelas 9.10','Ruang Kelas 9.11'],
     toilet_lk: ['Lantai 6','Lantai 7','Lantai 8','Lantai 9'],
     toilet_pr: ['Lantai 6','Lantai 7','Lantai 8','Lantai 9'],
 };
@@ -624,9 +491,7 @@ function handleTempatChange() {
     const val = document.getElementById('tempatUtama').value;
     const subWrap = document.getElementById('subLokasiWrap');
     const subSelect = document.getElementById('subLokasi');
-
     subWrap.style.display = 'none';
-
     if (subLocs[val]) {
         subSelect.innerHTML = '<option value="" disabled selected>— Pilih sub-lokasi —</option>';
         subLocs[val].forEach(name => {
@@ -664,6 +529,18 @@ function handlePhoto(input, slotId) {
         slot.querySelectorAll('.slot-icon, .slot-label, .slot-hint').forEach(el => el.style.opacity = '0');
     };
     reader.readAsDataURL(input.files[0]);
+}
+
+function hapusFoto(event, slotId, inputId) {
+    event.preventDefault();
+    event.stopPropagation();
+    const slot = document.getElementById(slotId);
+    const input = document.getElementById(inputId);
+    const oldImg = slot.querySelector('.preview-img');
+    if (oldImg) oldImg.remove();
+    input.value = '';
+    slot.classList.remove('has-file');
+    slot.querySelectorAll('.slot-icon, .slot-label, .slot-hint').forEach(el => el.style.opacity = '1');
 }
 
 document.addEventListener('DOMContentLoaded', function() {
