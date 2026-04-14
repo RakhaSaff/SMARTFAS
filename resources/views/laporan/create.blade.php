@@ -31,6 +31,10 @@ body { font-family: 'DM Sans', sans-serif; background: #f0f5f2; }
     from { opacity: 0; transform: translateY(28px); }
     to   { opacity: 1; transform: translateY(0); }
 }
+@keyframes fadeSlideDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
 .anim-breadcrumb  { animation: fadeSlideUp .5s ease both; animation-delay: .05s; }
 .anim-title       { animation: fadeSlideUp .55s ease both; animation-delay: .18s; }
 .anim-subtitle    { animation: fadeSlideUp .55s ease both; animation-delay: .30s; }
@@ -40,36 +44,20 @@ body { font-family: 'DM Sans', sans-serif; background: #f0f5f2; }
 .hero-banner {
     background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-mid) 60%, #0d7a45 100%);
     padding: 90px 40px 40px;
-    position: relative;
-    overflow: hidden;
-    text-align: center;
+    position: relative; overflow: hidden; text-align: center;
 }
 .hero-banner::before {
-    content: '';
-    position: absolute;
-    top: -60px; right: -60px;
-    width: 280px; height: 280px;
-    background: rgba(255,255,255,0.04);
-    border-radius: 50%;
+    content: ''; position: absolute; top: -60px; right: -60px;
+    width: 280px; height: 280px; background: rgba(255,255,255,0.04); border-radius: 50%;
 }
 .hero-banner::after {
-    content: '';
-    position: absolute;
-    bottom: -50px; left: -50px;
-    width: 220px; height: 220px;
-    background: rgba(255,255,255,0.03);
-    border-radius: 50%;
+    content: ''; position: absolute; bottom: -50px; left: -50px;
+    width: 220px; height: 220px; background: rgba(255,255,255,0.03); border-radius: 50%;
 }
 .breadcrumb-custom {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    margin-bottom: 18px;
-    font-size: 0.8rem;
-    color: rgba(255,255,255,0.6);
-    background: none;
-    padding: 0;
+    display: flex; align-items: center; justify-content: center;
+    gap: 8px; margin-bottom: 18px; font-size: 0.8rem;
+    color: rgba(255,255,255,0.6); background: none; padding: 0;
 }
 .breadcrumb-custom a { color: rgba(255,255,255,0.6); text-decoration: none; }
 .breadcrumb-custom a:hover { color: rgba(255,255,255,0.9); }
@@ -77,51 +65,65 @@ body { font-family: 'DM Sans', sans-serif; background: #f0f5f2; }
 .breadcrumb-custom .current { color: rgba(255,255,255,0.9); font-weight: 500; }
 .hero-content h1 {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 2.1rem;
-    font-weight: 800;
-    color: white;
-    margin-bottom: 10px;
-    line-height: 1.2;
+    font-size: 2.1rem; font-weight: 800; color: white;
+    margin-bottom: 10px; line-height: 1.2;
 }
 .hero-content h1 span { color: var(--orange); }
 .hero-content p {
-    color: rgba(255,255,255,0.72);
-    font-size: 0.95rem;
-    max-width: 520px;
-    margin: 0 auto;
-    line-height: 1.6;
+    color: rgba(255,255,255,0.72); font-size: 0.95rem;
+    max-width: 520px; margin: 0 auto; line-height: 1.6;
 }
+
+/* ── Alert Sukses ── */
+.alert-success-banner {
+    background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
+    border-left: 5px solid #16a34a;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    animation: fadeSlideDown .4s ease both;
+}
+.alert-success-banner .alert-inner {
+    display: flex; align-items: center; gap: 12px;
+}
+.alert-success-banner .alert-icon { font-size: 1.5rem; flex-shrink: 0; }
+.alert-success-banner .alert-title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700; color: #14532d; font-size: 0.92rem;
+}
+.alert-success-banner .alert-msg {
+    color: #166534; font-size: 0.8rem; margin-top: 2px;
+}
+.alert-close-btn {
+    background: none; border: none; cursor: pointer;
+    color: #16a34a; font-size: 1.2rem; font-weight: 700;
+    width: 32px; height: 32px; border-radius: 6px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    transition: background .2s;
+}
+.alert-close-btn:hover { background: rgba(22,163,74,0.15); }
 
 .page-body { max-width: 900px; margin: 0 auto; padding: 32px 20px 60px; }
 
 .info-box {
     background: linear-gradient(135deg, rgba(22,163,74,0.07) 0%, rgba(15,107,62,0.04) 100%);
     border: 1px solid rgba(22,163,74,0.18);
-    border-radius: var(--radius-sm);
-    padding: 12px 16px;
-    display: flex;
-    gap: 10px;
-    align-items: flex-start;
-    margin-bottom: 20px;
+    border-radius: var(--radius-sm); padding: 12px 16px;
+    display: flex; gap: 10px; align-items: flex-start; margin-bottom: 20px;
 }
 .info-box p { font-size: 0.8rem; color: var(--green-dark); line-height: 1.5; margin: 0; }
 
 .form-card { background: white; border-radius: var(--radius); box-shadow: var(--shadow-md); overflow: hidden; }
 .form-card-header {
     background: linear-gradient(90deg, var(--green-dark) 0%, var(--green-mid) 100%);
-    padding: 20px 28px;
-    display: flex;
-    align-items: center;
-    gap: 14px;
+    padding: 20px 28px; display: flex; align-items: center; gap: 14px;
 }
 .form-card-icon {
-    width: 44px; height: 44px;
-    background: rgba(255,255,255,0.15);
-    border-radius: 10px;
-    display: grid;
-    place-items: center;
-    font-size: 1.25rem;
-    flex-shrink: 0;
+    width: 44px; height: 44px; background: rgba(255,255,255,0.15);
+    border-radius: 10px; display: grid; place-items: center;
+    font-size: 1.25rem; flex-shrink: 0;
 }
 .form-card-header h2 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.05rem; font-weight: 700; color: white; margin: 0; }
 .form-card-header p { font-size: 0.8rem; color: rgba(255,255,255,0.65); margin: 2px 0 0; }
@@ -133,25 +135,16 @@ body { font-family: 'DM Sans', sans-serif; background: #f0f5f2; }
 .field label { font-size: 0.82rem; font-weight: 600; color: var(--gray-700); font-family: 'Plus Jakarta Sans', sans-serif; display: flex; align-items: center; gap: 6px; }
 .field label .req { color: #ef4444; }
 
-.form-control-custom,
-.form-select-custom {
-    width: 100%;
-    padding: 11px 14px;
-    border: 1.5px solid var(--gray-200);
-    border-radius: var(--radius-sm);
-    font-size: 0.875rem;
-    font-family: 'DM Sans', sans-serif;
-    color: var(--gray-900);
-    background: var(--gray-50);
+.form-control-custom, .form-select-custom {
+    width: 100%; padding: 11px 14px;
+    border: 1.5px solid var(--gray-200); border-radius: var(--radius-sm);
+    font-size: 0.875rem; font-family: 'DM Sans', sans-serif;
+    color: var(--gray-900); background: var(--gray-50);
     transition: border-color .2s, box-shadow .2s, background .2s;
-    outline: none;
-    appearance: none;
-    -webkit-appearance: none;
+    outline: none; appearance: none; -webkit-appearance: none;
 }
-.form-control-custom:focus,
-.form-select-custom:focus {
-    border-color: var(--green-bright);
-    background: white;
+.form-control-custom:focus, .form-select-custom:focus {
+    border-color: var(--green-bright); background: white;
     box-shadow: 0 0 0 3px rgba(22,163,74,0.12);
 }
 .char-count { text-align: right; font-size: 0.73rem; color: var(--gray-400); margin-top: 3px; font-family: 'Plus Jakarta Sans', sans-serif; }
@@ -160,13 +153,9 @@ body { font-family: 'DM Sans', sans-serif; background: #f0f5f2; }
 
 .select-wrap { position: relative; }
 .select-wrap::after {
-    content: '▾';
-    position: absolute;
-    right: 13px; top: 50%;
-    transform: translateY(-50%);
-    color: var(--gray-400);
-    pointer-events: none;
-    font-size: 0.85rem;
+    content: '▾'; position: absolute; right: 13px; top: 50%;
+    transform: translateY(-50%); color: var(--gray-400);
+    pointer-events: none; font-size: 0.85rem;
 }
 .form-select-custom { padding-right: 34px; cursor: pointer; }
 textarea.form-control-custom { resize: vertical; min-height: 100px; line-height: 1.55; }
@@ -174,17 +163,18 @@ textarea.form-control-custom { resize: vertical; min-height: 100px; line-height:
 .place-selector { display: flex; flex-direction: column; gap: 8px; }
 
 .photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 4px; }
+
+.photo-slot-wrap { display: flex; flex-direction: column; gap: 6px; }
+
 .photo-slot {
     aspect-ratio: 1;
     border: 2px dashed var(--gray-200);
     border-radius: var(--radius-sm);
     display: flex; flex-direction: column;
     align-items: center; justify-content: center;
-    cursor: pointer;
-    transition: all .2s;
+    cursor: pointer; transition: all .2s;
     background: var(--gray-50);
-    position: relative; overflow: hidden;
-    gap: 6px;
+    position: relative; overflow: hidden; gap: 6px;
 }
 .photo-slot:hover { border-color: var(--green-bright); background: rgba(22,163,74,0.04); }
 .photo-slot.has-file { border-style: solid; border-color: var(--green-bright); }
@@ -194,72 +184,93 @@ textarea.form-control-custom { resize: vertical; min-height: 100px; line-height:
 .photo-slot .slot-hint { font-size: 0.68rem; color: var(--gray-400); pointer-events: none; }
 .photo-slot .preview-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
 .photo-slot .preview-overlay {
-    position: absolute; inset: 0;
-    background: rgba(0,0,0,0.45);
+    position: absolute; inset: 0; background: rgba(0,0,0,0.45);
     display: none; align-items: center; justify-content: center;
     color: white; font-size: 0.72rem; font-weight: 600;
-    font-family: 'Plus Jakarta Sans', sans-serif; gap: 4px;
-    pointer-events: none;
+    font-family: 'Plus Jakarta Sans', sans-serif; gap: 4px; pointer-events: none;
 }
 .photo-slot:hover .preview-overlay { display: flex; }
 
 .check-badge {
     position: absolute; top: 6px; right: 6px;
-    width: 20px; height: 20px;
-    background: var(--green-bright); border-radius: 50%;
-    display: none; place-items: center;
-    color: white; font-size: 0.65rem; font-weight: 700; z-index: 2;
-    pointer-events: none;
+    width: 20px; height: 20px; background: var(--green-bright); border-radius: 50%;
+    display: none; place-items: center; color: white; font-size: 0.65rem; font-weight: 700; z-index: 2; pointer-events: none;
 }
 .photo-slot.has-file .check-badge { display: grid; }
 
 .delete-btn {
-    position: absolute; top: 6px; left: 6px;
-    width: 24px; height: 24px;
-    background: #ef4444; border-radius: 50%;
-    display: none; place-items: center;
+    position: absolute; top: 6px; left: 6px; width: 24px; height: 24px;
+    background: #ef4444; border-radius: 50%; display: none; place-items: center;
     color: white; font-size: 0.75rem; font-weight: 700; z-index: 3;
-    cursor: pointer; border: none;
-    pointer-events: all;
-    box-shadow: 0 2px 6px rgba(239,68,68,0.4);
-    transition: all .2s;
+    cursor: pointer; border: none; pointer-events: all;
+    box-shadow: 0 2px 6px rgba(239,68,68,0.4); transition: all .2s;
 }
 .delete-btn:hover { background: #dc2626; transform: scale(1.1); }
 .photo-slot.has-file .delete-btn { display: grid; }
 
+.camera-btn {
+    width: 100%;
+    padding: 6px 0;
+    background: #f0fdf4;
+    border: 1.5px solid #bbf7d0;
+    border-radius: var(--radius-sm);
+    color: var(--green-dark);
+    font-size: 0.72rem;
+    font-weight: 700;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    transition: all .2s;
+}
+.camera-btn:hover { background: #dcfce7; border-color: var(--green-bright); }
+
 .form-divider { height: 1px; background: var(--gray-100); margin: 24px 0; }
 
 .form-actions {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px 28px;
-    background: var(--gray-50);
-    border-top: 1px solid var(--gray-100);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 28px; background: var(--gray-50); border-top: 1px solid var(--gray-100);
 }
 .btn-back-custom {
-    display: flex; align-items: center; gap: 7px;
-    padding: 11px 22px;
-    border: 1.5px solid var(--gray-200);
-    background: white; color: var(--gray-700);
+    display: flex; align-items: center; gap: 7px; padding: 11px 22px;
+    border: 1.5px solid var(--gray-200); background: white; color: var(--gray-700);
     font-size: 0.875rem; font-weight: 600; cursor: pointer;
-    border-radius: var(--radius-sm);
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    border-radius: var(--radius-sm); font-family: 'Plus Jakarta Sans', sans-serif;
     transition: all .2s; text-decoration: none;
 }
 .btn-back-custom:hover { border-color: var(--gray-300); background: var(--gray-50); color: var(--gray-700); }
 .btn-submit-custom {
-    display: flex; align-items: center; gap: 8px;
-    padding: 12px 30px;
-    border: none;
-    background: linear-gradient(135deg, var(--green-mid) 0%, var(--green-dark) 100%);
+    display: flex; align-items: center; gap: 8px; padding: 12px 30px;
+    border: none; background: linear-gradient(135deg, var(--green-mid) 0%, var(--green-dark) 100%);
     color: white; font-size: 0.9rem; font-weight: 700; cursor: pointer;
-    border-radius: var(--radius-sm);
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    transition: all .2s;
-    box-shadow: 0 4px 14px rgba(15,107,62,0.3);
+    border-radius: var(--radius-sm); font-family: 'Plus Jakarta Sans', sans-serif;
+    transition: all .2s; box-shadow: 0 4px 14px rgba(15,107,62,0.3);
 }
 .btn-submit-custom:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(15,107,62,0.4); color: white; }
+.btn-submit-custom:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+
+/* Modal Webcam */
+.webcam-modal {
+    display: none; position: fixed; inset: 0; z-index: 200;
+    background: rgba(0,0,0,0.8); backdrop-filter: blur(4px);
+    align-items: center; justify-content: center; padding: 20px;
+}
+.webcam-modal.open { display: flex; }
+.webcam-modal-inner {
+    background: white; border-radius: 1.25rem; padding: 1.5rem;
+    max-width: 500px; width: 100%; box-shadow: 0 25px 60px rgba(0,0,0,0.3);
+}
+.webcam-modal-header {
+    display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;
+}
+.webcam-modal-header h3 { font-size: 1rem; font-weight: 700; color: var(--gray-900); margin: 0; }
+.webcam-close-btn {
+    width: 2rem; height: 2rem; border-radius: 50%; border: none;
+    background: var(--gray-100); cursor: pointer; font-size: 1rem;
+    display: flex; align-items: center; justify-content: center;
+}
 
 @media (max-width: 600px) {
     .hero-banner { padding: 80px 16px 28px; }
@@ -289,17 +300,43 @@ textarea.form-control-custom { resize: vertical; min-height: 100px; line-height:
     </div>
 </div>
 
+{{-- ALERT BANNER SUKSES --}}
+@if(session('success'))
+<div class="alert-success-banner" id="successAlert">
+    <div class="alert-inner">
+        <span class="alert-icon">✅</span>
+        <div>
+            <div class="alert-title">Laporan Berhasil Dikirim!</div>
+            <div class="alert-msg">{{ session('success') }}</div>
+        </div>
+    </div>
+    <button type="button" class="alert-close-btn" onclick="tutupAlert()">✕</button>
+</div>
+<script>
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setTimeout(() => tutupAlert(), 6000);
+    function tutupAlert() {
+        const el = document.getElementById('successAlert');
+        if (!el) return;
+        el.style.transition = 'opacity .4s, transform .4s';
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(-10px)';
+        setTimeout(() => el.remove(), 400);
+    }
+</script>
+@endif
+
 {{-- MAIN CONTENT --}}
 <div class="page-body">
 
     <div class="info-box anim-infobox">
-        <span style="font-size:1rem;flex-shrink:0;margin-top:1px;">💡</span>
-        <p>Pastikan semua foto diunggah dengan jelas dari 6 sisi berbeda. Laporan dengan foto lengkap akan diproses lebih cepat oleh tim teknisi.</p>
+        <span style="font-size:1rem;flex-shrink:0;margin-top:1px;"></span>
+        <p>Pastikan semua foto diunggah dengan jelas dari 6 sisi berbeda. Klik kotak untuk unggah file, atau klik tombol  untuk ambil foto langsung dari kamera.</p>
     </div>
 
     <div class="form-card anim-formcard">
         <div class="form-card-header">
-            <div class="form-card-icon">🔧</div>
+            <div class="form-card-icon"></div>
             <div>
                 <h2>Formulir Pelaporan Kerusakan Fasilitas</h2>
                 <p>Fakultas Sains & Teknologi — UIN Sunan Ampel Surabaya</p>
@@ -315,12 +352,9 @@ textarea.form-control-custom { resize: vertical; min-height: 100px; line-height:
                 <div class="form-row">
                     <div class="field">
                         <label>Nama Barang <span class="req">*</span></label>
-                        <input type="text"
-                               name="nama_barang"
-                               id="namaBarang"
+                        <input type="text" name="nama_barang" id="namaBarang"
                                class="form-control-custom @error('nama_barang') is-invalid @enderror"
-                               maxlength="30"
-                               placeholder="cth: AC Split 1.5 PK"
+                               maxlength="30" placeholder="cth: AC Split 1.5 PK"
                                value="{{ old('nama_barang') }}"
                                oninput="updateChar('namaBarang','namaCount',30)">
                         <div class="char-count" id="namaCount">{{ strlen(old('nama_barang','')) }} / 30</div>
@@ -335,8 +369,8 @@ textarea.form-control-custom { resize: vertical; min-height: 100px; line-height:
                             <select name="jenis_barang" id="jenisBarang"
                                     class="form-select-custom @error('jenis_barang') is-invalid @enderror">
                                 <option value="" disabled {{ old('jenis_barang') ? '' : 'selected' }}>— Pilih jenis barang —</option>
-                                <option value="elektronik" {{ old('jenis_barang') == 'elektronik' ? 'selected' : '' }}>⚡ Elektronik</option>
-                                <option value="non-elektronik" {{ old('jenis_barang') == 'non-elektronik' ? 'selected' : '' }}>🪑 Non-Elektronik</option>
+                                <option value="elektronik" {{ old('jenis_barang') == 'elektronik' ? 'selected' : '' }}> Elektronik</option>
+                                <option value="non-elektronik" {{ old('jenis_barang') == 'non-elektronik' ? 'selected' : '' }}> Non-Elektronik</option>
                             </select>
                         </div>
                         @error('jenis_barang')
@@ -408,27 +442,30 @@ textarea.form-control-custom { resize: vertical; min-height: 100px; line-height:
                     <label style="margin-bottom:4px;">Foto Kerusakan (6 Sisi) <span class="req">*</span></label>
                     <div class="photo-grid">
                         @foreach([
-                            ['id' => 'foto_atas',     'slot' => 'slot-atas',     'icon' => '🔼', 'label' => 'Atas'],
-                            ['id' => 'foto_bawah',    'slot' => 'slot-bawah',    'icon' => '🔽', 'label' => 'Bawah'],
-                            ['id' => 'foto_kanan',    'slot' => 'slot-kanan',    'icon' => '▶️',  'label' => 'Kanan'],
-                            ['id' => 'foto_kiri',     'slot' => 'slot-kiri',     'icon' => '◀️',  'label' => 'Kiri'],
-                            ['id' => 'foto_depan',    'slot' => 'slot-depan',    'icon' => '⏩', 'label' => 'Depan'],
-                            ['id' => 'foto_belakang', 'slot' => 'slot-belakang', 'icon' => '⏪', 'label' => 'Belakang'],
+                            ['id' => 'foto_atas',     'slot' => 'slot-atas',     'icon' => '', 'label' => 'Atas'],
+                            ['id' => 'foto_bawah',    'slot' => 'slot-bawah',    'icon' => '', 'label' => 'Bawah'],
+                            ['id' => 'foto_kanan',    'slot' => 'slot-kanan',    'icon' => '',  'label' => 'Kanan'],
+                            ['id' => 'foto_kiri',     'slot' => 'slot-kiri',     'icon' => '',  'label' => 'Kiri'],
+                            ['id' => 'foto_depan',    'slot' => 'slot-depan',    'icon' => '', 'label' => 'Depan'],
+                            ['id' => 'foto_belakang', 'slot' => 'slot-belakang', 'icon' => '', 'label' => 'Belakang'],
                         ] as $foto)
-                        <label for="{{ $foto['id'] }}" class="photo-slot" id="{{ $foto['slot'] }}">
-                            <input type="file"
-                                   name="{{ $foto['id'] }}"
-                                   id="{{ $foto['id'] }}"
-                                   accept="image/*"
-                                   onchange="handlePhoto(this,'{{ $foto['slot'] }}')">
-                            <span class="slot-icon">{{ $foto['icon'] }}</span>
-                            <span class="slot-label">{{ $foto['label'] }}</span>
-                            <span class="slot-hint">Klik untuk unggah</span>
-                            <div class="check-badge">✓</div>
-                            <button type="button" class="delete-btn"
-                                    onclick="hapusFoto(event,'{{ $foto['slot'] }}','{{ $foto['id'] }}')">✕</button>
-                            <div class="preview-overlay">🔄 Ganti Foto</div>
-                        </label>
+                        <div class="photo-slot-wrap">
+                            <label for="{{ $foto['id'] }}" class="photo-slot" id="{{ $foto['slot'] }}">
+                                <input type="file" name="{{ $foto['id'] }}" id="{{ $foto['id'] }}"
+                                       accept="image/*" onchange="handlePhoto(this,'{{ $foto['slot'] }}')">
+                                <span class="slot-icon">{{ $foto['icon'] }}</span>
+                                <span class="slot-label">{{ $foto['label'] }}</span>
+                                <span class="slot-hint">Klik untuk unggah</span>
+                                <div class="check-badge">✓</div>
+                                <button type="button" class="delete-btn"
+                                        onclick="hapusFoto(event,'{{ $foto['slot'] }}','{{ $foto['id'] }}')">✕</button>
+                                <div class="preview-overlay">🔄 Ganti</div>
+                            </label>
+                            <button type="button" class="camera-btn"
+                                    onclick="bukaKameraSlot('{{ $foto['slot'] }}','{{ $foto['id'] }}')">
+                                 Ambil Foto
+                            </button>
+                        </div>
                         @endforeach
                     </div>
                     @error('foto_atas')
@@ -441,11 +478,9 @@ textarea.form-control-custom { resize: vertical; min-height: 100px; line-height:
                 {{-- Deskripsi Kerusakan --}}
                 <div class="field">
                     <label>Deskripsi Kerusakan <span class="req">*</span></label>
-                    <textarea name="deskripsi"
-                              id="deskripsi"
+                    <textarea name="deskripsi" id="deskripsi"
                               class="form-control-custom @error('deskripsi') is-invalid @enderror"
-                              maxlength="250"
-                              rows="4"
+                              maxlength="250" rows="4"
                               placeholder="Jelaskan kerusakan secara detail: kondisi barang, bagian yang rusak, kapan pertama kali terlihat, dll."
                               oninput="updateChar('deskripsi','deskCount',250)">{{ old('deskripsi') }}</textarea>
                     <div class="char-count" id="deskCount">{{ strlen(old('deskripsi','')) }} / 250</div>
@@ -458,12 +493,41 @@ textarea.form-control-custom { resize: vertical; min-height: 100px; line-height:
 
             <div class="form-actions">
                 <a href="{{ route('home') }}" class="btn-back-custom">← Kembali</a>
-                <button type="submit" class="btn-submit-custom">Kirim Laporan →</button>
+                <button type="submit" class="btn-submit-custom" id="submitBtn">Kirim Laporan →</button>
             </div>
 
         </form>
     </div>
 
+</div>
+
+{{-- Modal Webcam --}}
+<div class="webcam-modal" id="webcamModal">
+    <div class="webcam-modal-inner">
+        <div class="webcam-modal-header">
+            <h3>📷 Ambil Foto</h3>
+            <button type="button" class="webcam-close-btn" onclick="tutupKameraSlot()">✕</button>
+        </div>
+        <video id="webcamVideo" autoplay playsinline
+               style="width:100%;border-radius:0.75rem;background:#000;max-height:300px;object-fit:cover;"></video>
+        <canvas id="webcamCanvas" style="display:none;"></canvas>
+        <div style="display:flex;gap:0.75rem;margin-top:1rem;">
+            <button type="button" onclick="tutupKameraSlot()"
+                    style="flex:1;padding:0.75rem;border:1.5px solid #e2e8f0;border-radius:0.75rem;
+                           background:white;color:#6b7280;font-weight:600;cursor:pointer;
+                           font-size:0.875rem;font-family:'Plus Jakarta Sans',sans-serif;">
+                Batal
+            </button>
+            <button type="button" onclick="ambilFotoSlot()"
+                    style="flex:2;padding:0.75rem;border-radius:0.75rem;
+                           background:linear-gradient(135deg,#0f6b3e,#0a4a2e);
+                           color:white;font-weight:700;cursor:pointer;
+                           font-size:0.875rem;font-family:'Plus Jakarta Sans',sans-serif;
+                           border:none;box-shadow:0 4px 12px rgba(15,107,62,0.3);">
+                📸 Ambil Foto
+            </button>
+        </div>
+    </div>
 </div>
 
 @endsection
@@ -519,16 +583,20 @@ function handlePhoto(input, slotId) {
     const slot = document.getElementById(slotId);
     const reader = new FileReader();
     reader.onload = (e) => {
-        const oldImg = slot.querySelector('.preview-img');
-        if (oldImg) oldImg.remove();
-        const img = document.createElement('img');
-        img.src = e.target.result;
-        img.className = 'preview-img';
-        slot.insertBefore(img, slot.firstChild);
-        slot.classList.add('has-file');
-        slot.querySelectorAll('.slot-icon, .slot-label, .slot-hint').forEach(el => el.style.opacity = '0');
+        setSlotPreview(slot, e.target.result);
     };
     reader.readAsDataURL(input.files[0]);
+}
+
+function setSlotPreview(slot, src) {
+    const oldImg = slot.querySelector('.preview-img');
+    if (oldImg) oldImg.remove();
+    const img = document.createElement('img');
+    img.src = src;
+    img.className = 'preview-img';
+    slot.insertBefore(img, slot.firstChild);
+    slot.classList.add('has-file');
+    slot.querySelectorAll('.slot-icon, .slot-label, .slot-hint').forEach(el => el.style.opacity = '0');
 }
 
 function hapusFoto(event, slotId, inputId) {
@@ -541,6 +609,97 @@ function hapusFoto(event, slotId, inputId) {
     input.value = '';
     slot.classList.remove('has-file');
     slot.querySelectorAll('.slot-icon, .slot-label, .slot-hint').forEach(el => el.style.opacity = '1');
+
+    // Hapus juga hidden input base64 jika ada
+    const hiddenInput = document.getElementById('base64_' + inputId);
+    if (hiddenInput) hiddenInput.value = '';
+}
+
+// ── Validasi minimal 3 foto + Prevent double submit ──
+document.getElementById('reportForm').addEventListener('submit', function(e) {
+    const sisi = ['slot-atas','slot-bawah','slot-kanan','slot-kiri','slot-depan','slot-belakang'];
+    let jumlah = 0;
+    sisi.forEach(id => {
+        const slot = document.getElementById(id);
+        if (slot && slot.classList.contains('has-file')) jumlah++;
+    });
+
+    if (jumlah < 3) {
+        e.preventDefault();
+        alert(' Minimal 3 foto kerusakan harus diunggah sebelum mengirim laporan.');
+        return;
+    }
+
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.innerHTML = ' Mengirim...';
+});
+
+// ── Webcam per slot ──
+let webcamStream = null;
+let activeSlotId = null;
+let activeInputId = null;
+
+function bukaKameraSlot(slotId, inputId) {
+    activeSlotId = slotId;
+    activeInputId = inputId;
+
+    const modal = document.getElementById('webcamModal');
+    const video = document.getElementById('webcamVideo');
+
+    navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' }, audio: false })
+        .then(stream => {
+            webcamStream = stream;
+            video.srcObject = stream;
+            modal.classList.add('open');
+        })
+        .catch(() => {
+            navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+                .then(stream => {
+                    webcamStream = stream;
+                    video.srcObject = stream;
+                    modal.classList.add('open');
+                })
+                .catch(() => {
+                    alert('Tidak dapat mengakses kamera. Pastikan izin kamera sudah diberikan di browser.');
+                });
+        });
+}
+
+function ambilFotoSlot() {
+    const video = document.getElementById('webcamVideo');
+    const canvas = document.getElementById('webcamCanvas');
+    canvas.width  = video.videoWidth;
+    canvas.height = video.videoHeight;
+    canvas.getContext('2d').drawImage(video, 0, 0);
+
+    const dataUrl = canvas.toDataURL('image/jpeg', 0.9);
+
+    const slot = document.getElementById(activeSlotId);
+    setSlotPreview(slot, dataUrl);
+
+    // Simpan ke hidden input base64
+    let hiddenInput = document.getElementById('base64_' + activeInputId);
+    if (!hiddenInput) {
+        hiddenInput = document.createElement('input');
+        hiddenInput.type = 'hidden';
+        hiddenInput.id = 'base64_' + activeInputId;
+        hiddenInput.name = 'base64_' + activeInputId;
+        document.getElementById('reportForm').appendChild(hiddenInput);
+    }
+    hiddenInput.value = dataUrl;
+
+    tutupKameraSlot();
+}
+
+function tutupKameraSlot() {
+    if (webcamStream) {
+        webcamStream.getTracks().forEach(track => track.stop());
+        webcamStream = null;
+    }
+    document.getElementById('webcamModal').classList.remove('open');
+    activeSlotId = null;
+    activeInputId = null;
 }
 
 document.addEventListener('DOMContentLoaded', function() {
