@@ -28,8 +28,18 @@ class RegisterController extends Controller
             'password'          => ['required', 'string', 'min:8', 'confirmed'],
         ]);
 
+        // Generate username otomatis dari name
+        $baseUsername = strtolower(str_replace(' ', '_', $data['name']));
+        $username = $baseUsername;
+        $i = 1;
+        while (User::where('username', $username)->exists()) {
+            $username = $baseUsername . '_' . $i;
+            $i++;
+        }
+
         $user = User::create([
             'name'              => $data['name'],
+            'username'          => $username,
             'tanggal_lahir'     => $data['tanggal_lahir'],
             'nim_nip'           => $data['nim_nip'],
             'jenis_kelamin'     => $data['jenis_kelamin'],

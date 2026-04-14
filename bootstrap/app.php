@@ -11,7 +11,14 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        //
+        $middleware->redirectGuestsTo(function ($request) {
+            // Kalau akses route admin → redirect ke login admin
+            if ($request->is('admin/*')) {
+                return route('admin.login');
+            }
+            // Selainnya → redirect ke login user
+            return route('login');
+        });
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

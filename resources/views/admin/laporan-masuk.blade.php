@@ -75,14 +75,20 @@
                     </td>
                     <td>
                         <div class="font-medium text-gray-800">{{ $item->nama_barang }}</div>
-                        <div class="text-xs text-gray-400">{{ $item->kategori }}</div>
+                        <div class="text-xs text-gray-400">{{ $item->jenis_barang }}</div>
                     </td>
-                    <td class="text-sm text-gray-600">{{ $item->lokasi }}</td>
+                    <td class="text-sm text-gray-600">
+                        {{ ucwords(str_replace('_', ' ', $item->tempat_label ?? $item->tempat_utama ?? '-')) }}
+                    </td>
                     <td>
-                        @if($item->foto)
-                            <img src="{{ asset('storage/' . $item->foto) }}"
+                        @php
+                            $fotoPreview = $item->foto_atas ?? $item->foto_depan ?? $item->foto_kanan ??
+                                           $item->foto_kiri ?? $item->foto_bawah ?? $item->foto_belakang ?? null;
+                        @endphp
+                        @if($fotoPreview)
+                            <img src="{{ asset('storage/' . $fotoPreview) }}"
                                  class="w-14 h-10 object-cover rounded-lg border cursor-pointer hover:opacity-80 transition"
-                                 onclick="openPhoto('{{ asset('storage/' . $item->foto) }}')">
+                                 onclick="openPhoto('{{ asset('storage/' . $fotoPreview) }}')">
                         @else
                             <span class="text-gray-300 text-xs">—</span>
                         @endif

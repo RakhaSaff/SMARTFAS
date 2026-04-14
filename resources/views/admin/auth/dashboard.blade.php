@@ -104,7 +104,7 @@
             <p class="card-title">Laporan Masuk Terbaru</p>
             <p class="text-xs text-gray-400 mt-0.5">Kelola & verifikasi tingkat kerusakan</p>
         </div>
-        <a href="{{ route('admin.laporan-masuk') }}"
+        <a href="{{ route('admin.laporan-masuk.index') }}"
            class="text-xs font-semibold text-emerald-600 hover:text-emerald-800 flex items-center gap-1">
             Lihat Semua <i class="fa-solid fa-arrow-right"></i>
         </a>

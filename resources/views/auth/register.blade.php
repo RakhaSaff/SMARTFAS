@@ -169,9 +169,9 @@
 
             <!-- NIM / NIP -->
             <div class="form-group fade-in fade-in-2">
-                <label for="nim_nip" class="form-label">NIM / NIP</label>
+                <label for="nim_nip" class="form-label">NIM</label>
                 <input id="nim_nip" name="nim_nip" type="text" required
-                        class="form-input" placeholder="Mahasiswa: NIM | Dosen: NIP"
+                        class="form-input" placeholder="Masukkan: NIM Mahasiswa kamu"
                         value="{{ old('nim_nip') }}" />
                 @error('nim_nip') <p class="mt-1 text-xs text-red-500">{{ $message }}</p> @enderror
             </div>

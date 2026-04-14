@@ -7,7 +7,8 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * Run the migrations.
+     * Tabel jobs, job_batches, failed_jobs — bawaan Laravel, tidak diubah.
+     * Berguna untuk queue job: notifikasi, pengiriman email update status laporan, dll.
      */
     public function up(): void
     {
@@ -45,9 +46,6 @@ return new class extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('jobs');

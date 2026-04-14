@@ -255,7 +255,7 @@
             Dashboard
         </a>
 
-        <a href="{{ route('admin.laporan-masuk') }}"
+        <a href="{{ route('admin.laporan-masuk.index') }}"
            class="nav-item {{ request()->routeIs('admin.laporan-masuk') ? 'active' : '' }}">
             <i class="fa-solid fa-inbox"></i>
             Laporan Masuk
@@ -273,6 +273,12 @@
            class="nav-item {{ request()->routeIs('admin.manajemen-perbaikan') ? 'active' : '' }}">
             <i class="fa-solid fa-screwdriver-wrench"></i>
             Manajemen Perbaikan
+        </a>
+
+        <a href="{{ route('admin.rekapan') }}"
+           class="nav-item {{ request()->routeIs('admin.rekapan') ? 'active' : '' }}">
+            <i class="fa-solid fa-box-archive"></i>
+            Rekapan
         </a>
     </nav>
 

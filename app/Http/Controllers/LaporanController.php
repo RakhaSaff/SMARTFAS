@@ -7,17 +7,11 @@ use App\Models\Laporan;
 
 class LaporanController extends Controller
 {
-    /**
-     * Tampilkan form buat laporan
-     */
     public function create()
     {
         return view('laporan.create');
     }
 
-    /**
-     * Simpan laporan kerusakan
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -27,31 +21,25 @@ class LaporanController extends Controller
             'sub_lokasi'   => 'nullable|string',
             'lantai_kelas' => 'nullable|string|max:100',
             'deskripsi'    => 'required|string|max:250',
-            'foto_atas'      => 'required|image|mimes:jpg,jpeg,png,webp|max:5120',
-            'foto_bawah'     => 'required|image|mimes:jpg,jpeg,png,webp|max:5120',
-            'foto_kanan'     => 'required|image|mimes:jpg,jpeg,png,webp|max:5120',
-            'foto_kiri'      => 'required|image|mimes:jpg,jpeg,png,webp|max:5120',
-            'foto_depan'     => 'required|image|mimes:jpg,jpeg,png,webp|max:5120',
-            'foto_belakang'  => 'required|image|mimes:jpg,jpeg,png,webp|max:5120',
+            'foto_atas'      => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
+            'foto_bawah'     => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
+            'foto_kanan'     => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
+            'foto_kiri'      => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
+            'foto_depan'     => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
+            'foto_belakang'  => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
         ], [
-            'nama_barang.required'   => 'Nama barang wajib diisi.',
-            'nama_barang.max'        => 'Nama barang maksimal 30 karakter.',
-            'jenis_barang.required'  => 'Jenis barang wajib dipilih.',
-            'tempat_utama.required'  => 'Pilihan tempat wajib dipilih.',
-            'deskripsi.required'     => 'Deskripsi kerusakan wajib diisi.',
-            'deskripsi.max'          => 'Deskripsi maksimal 250 karakter.',
-            'foto_atas.required'     => 'Foto sisi atas wajib diunggah.',
-            'foto_bawah.required'    => 'Foto sisi bawah wajib diunggah.',
-            'foto_kanan.required'    => 'Foto sisi kanan wajib diunggah.',
-            'foto_kiri.required'     => 'Foto sisi kiri wajib diunggah.',
-            'foto_depan.required'    => 'Foto sisi depan wajib diunggah.',
-            'foto_belakang.required' => 'Foto sisi belakang wajib diunggah.',
+            'nama_barang.required'  => 'Nama barang wajib diisi.',
+            'nama_barang.max'       => 'Nama barang maksimal 30 karakter.',
+            'jenis_barang.required' => 'Jenis barang wajib dipilih.',
+            'tempat_utama.required' => 'Pilihan tempat wajib dipilih.',
+            'deskripsi.required'    => 'Deskripsi kerusakan wajib diisi.',
+            'deskripsi.max'         => 'Deskripsi maksimal 250 karakter.',
         ]);
 
-        // Simpan foto ke storage/app/public/laporan
         $sisi = ['atas', 'bawah', 'kanan', 'kiri', 'depan', 'belakang'];
         $fotoPaths = [];
 
+        // Simpan foto dari file picker
         foreach ($sisi as $s) {
             $key = 'foto_' . $s;
             if ($request->hasFile($key)) {
@@ -59,7 +47,26 @@ class LaporanController extends Controller
             }
         }
 
-        // Gabungkan nama tempat
+        // Simpan foto dari webcam (base64)
+        foreach ($sisi as $s) {
+            $key = 'foto_' . $s;
+            $base64Key = 'base64_foto_' . $s;
+            if (!isset($fotoPaths[$key]) && $request->filled($base64Key)) {
+                $imageData = $request->input($base64Key);
+                $imageData = str_replace('data:image/jpeg;base64,', '', $imageData);
+                $imageData = base64_decode($imageData);
+                $filename = 'laporan/' . uniqid() . '.jpg';
+                \Storage::disk('public')->put($filename, $imageData);
+                $fotoPaths[$key] = $filename;
+            }
+        }
+
+        // Validasi minimal 3 foto
+        if (count($fotoPaths) < 3) {
+            return back()->withInput()
+                         ->withErrors(['foto_atas' => 'Minimal 3 foto kerusakan harus diunggah.']);
+        }
+
         $tempatLabel = $request->tempat_utama;
         if ($request->sub_lokasi) {
             $tempatLabel .= ' - ' . $request->sub_lokasi;
@@ -68,8 +75,7 @@ class LaporanController extends Controller
             $tempatLabel .= ' (' . $request->lantai_kelas . ')';
         }
 
-        // Simpan ke database
-        $laporan = Laporan::create([
+        Laporan::create([
             'user_id'       => auth()->id(),
             'nama_barang'   => $request->nama_barang,
             'jenis_barang'  => $request->jenis_barang,
@@ -88,27 +94,123 @@ class LaporanController extends Controller
             'nomor_tiket'   => 'SMF-' . strtoupper(uniqid()),
         ]);
 
-        return redirect()->route('laporan.success', $laporan->id)
-                         ->with('success', 'Laporan berhasil dikirim!');
+        return redirect()->route('laporan.create')
+                         ->with('success', 'Laporan berhasil dikirim! Tim kami akan segera menindaklanjuti.');
     }
 
-    /**
-     * Halaman sukses setelah laporan terkirim
-     */
     public function success($id)
     {
         $laporan = Laporan::findOrFail($id);
         return view('laporan.success', compact('laporan'));
     }
 
-    /**
-     * Daftar laporan milik user
-     */
     public function index()
     {
         $laporans = Laporan::where('user_id', auth()->id())
                            ->orderByDesc('created_at')
                            ->paginate(10);
         return view('laporan.index', compact('laporans'));
+    }
+
+    public function laporanSaya(Request $request)
+    {
+        $query = Laporan::where('user_id', auth()->id())
+                        ->orderByDesc('created_at');
+
+        if ($request->tiket) {
+            $query->where('nomor_tiket', 'like', '%' . $request->tiket . '%');
+        }
+
+        $laporans = $query->paginate(5);
+        return view('laporan.laporan-saya', compact('laporans'));
+    }
+
+    public function edit($id)
+    {
+        $laporan = Laporan::where('user_id', auth()->id())->findOrFail($id);
+
+        if ($laporan->status !== 'menunggu') {
+            return redirect()->route('laporan.saya')
+                             ->with('error', 'Laporan yang sudah diverifikasi tidak dapat diedit.');
+        }
+
+        return view('laporan.edit', compact('laporan'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $laporan = Laporan::where('user_id', auth()->id())->findOrFail($id);
+
+        if ($laporan->status !== 'menunggu') {
+            return redirect()->route('laporan.saya')
+                             ->with('error', 'Laporan yang sudah diverifikasi tidak dapat diedit.');
+        }
+
+        $request->validate([
+            'nama_barang'  => 'required|string|max:30',
+            'jenis_barang' => 'required|in:elektronik,non-elektronik',
+            'tempat_utama' => 'required|string',
+            'sub_lokasi'   => 'nullable|string',
+            'deskripsi'    => 'required|string|max:250',
+            'foto_atas'      => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
+            'foto_bawah'     => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
+            'foto_kanan'     => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
+            'foto_kiri'      => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
+            'foto_depan'     => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
+            'foto_belakang'  => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
+        ]);
+
+        $sisi = ['atas', 'bawah', 'kanan', 'kiri', 'depan', 'belakang'];
+        $fotoPaths = [];
+
+        foreach ($sisi as $s) {
+            $key = 'foto_' . $s;
+            if ($request->hasFile($key)) {
+                if ($laporan->$key) {
+                    \Storage::disk('public')->delete($laporan->$key);
+                }
+                $fotoPaths[$key] = $request->file($key)->store('laporan', 'public');
+            }
+        }
+
+        $tempatLabel = $request->tempat_utama;
+        if ($request->sub_lokasi) {
+            $tempatLabel .= ' - ' . $request->sub_lokasi;
+        }
+
+        $laporan->update(array_merge([
+            'nama_barang'  => $request->nama_barang,
+            'jenis_barang' => $request->jenis_barang,
+            'tempat_utama' => $request->tempat_utama,
+            'sub_lokasi'   => $request->sub_lokasi,
+            'tempat_label' => $tempatLabel,
+            'deskripsi'    => $request->deskripsi,
+        ], $fotoPaths));
+
+        return redirect()->route('laporan.saya')
+                         ->with('success', 'Laporan berhasil diperbarui.');
+    }
+
+    public function destroy($id)
+    {
+        $laporan = Laporan::where('user_id', auth()->id())->findOrFail($id);
+
+        if ($laporan->status !== 'menunggu') {
+            return redirect()->route('laporan.saya')
+                             ->with('error', 'Laporan yang sudah diverifikasi tidak dapat dihapus.');
+        }
+
+        $sisi = ['atas', 'bawah', 'kanan', 'kiri', 'depan', 'belakang'];
+        foreach ($sisi as $s) {
+            $field = 'foto_' . $s;
+            if ($laporan->$field) {
+                \Storage::disk('public')->delete($laporan->$field);
+            }
+        }
+
+        $laporan->delete();
+
+        return redirect()->route('laporan.saya')
+                         ->with('success', 'Laporan berhasil dihapus.');
     }
 }

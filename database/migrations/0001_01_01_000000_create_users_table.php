@@ -1,49 +1,57 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
+namespace App\Http\Controllers\Auth;
 
-return new class extends Migration
+use App\Http\Controllers\Controller;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+
+class RegisterController extends Controller
 {
-    /**
-     * Run the migrations.
-     */
-    public function up(): void
+    public function showRegistrationForm()
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
-            $table->timestamps();
-        });
-
-        Schema::create('password_reset_tokens', function (Blueprint $table) {
-            $table->string('email')->primary();
-            $table->string('token');
-            $table->timestamp('created_at')->nullable();
-        });
-
-        Schema::create('sessions', function (Blueprint $table) {
-            $table->string('id')->primary();
-            $table->foreignId('user_id')->nullable()->index();
-            $table->string('ip_address', 45)->nullable();
-            $table->text('user_agent')->nullable();
-            $table->longText('payload');
-            $table->integer('last_activity')->index();
-        });
+        return view('auth.register');
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
+    public function register(Request $request)
     {
-        Schema::dropIfExists('users');
-        Schema::dropIfExists('password_reset_tokens');
-        Schema::dropIfExists('sessions');
+        $data = $request->validate([
+            'name'          => ['required', 'string', 'max:255'],
+            'tanggal_lahir' => ['required', 'date'],
+            'nim_nip'       => ['required', 'string', 'max:50'],
+            'jenis_kelamin' => ['required', 'in:L,P'],
+            'alamat'        => ['required', 'string'],
+            'no_hp'         => ['required', 'string', 'max:20'],
+            'email'         => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'prodi'         => ['required', 'string', 'max:100'],
+            'password'      => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+
+        // Generate username otomatis dari name
+        $baseUsername = strtolower(str_replace(' ', '_', $data['name']));
+        $username = $baseUsername;
+        $i = 1;
+        while (User::where('username', $username)->exists()) {
+            $username = $baseUsername . '_' . $i;
+            $i++;
+        }
+
+        $user = User::create([
+            'name'          => $data['name'],
+            'username'      => $username,
+            'tanggal_lahir' => $data['tanggal_lahir'],
+            'NIM'           => $data['nim_nip'],
+            'jenis_kelamin' => $data['jenis_kelamin'],
+            'alamat'        => $data['alamat'],
+            'no_hp'         => $data['no_hp'],
+            'email'         => $data['email'],
+            'prodi'         => $data['prodi'],
+            'password'      => Hash::make($data['password']),
+        ]);
+
+        auth()->login($user);
+
+        return redirect()->route('dashboard');
     }
-};
+}

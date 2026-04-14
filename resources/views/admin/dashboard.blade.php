@@ -72,10 +72,14 @@
                 <p class="card-title">Grafik Laporan per Bulan</p>
                 <p class="text-xs text-gray-400 mt-0.5">Verifikasi vs belum diverifikasi</p>
             </div>
-            <select class="text-xs border border-gray-200 rounded-lg px-3 py-1.5 text-gray-600 focus:outline-none focus:border-emerald-400">
-                <option>2025</option>
-                <option>2024</option>
-            </select>
+            <form method="GET">
+                <select name="tahun" onchange="this.form.submit()"
+                        class="text-xs border border-gray-200 rounded-lg px-3 py-1.5 text-gray-600 focus:outline-none focus:border-emerald-400">
+                    @for($y = now()->year; $y >= now()->year - 3; $y--)
+                        <option value="{{ $y }}" {{ $tahun == $y ? 'selected' : '' }}>{{ $y }}</option>
+                    @endfor
+                </select>
+            </form>
         </div>
         <div class="p-5">
             <canvas id="chartBulanan" height="110"></canvas>
@@ -104,7 +108,7 @@
             <p class="card-title">Laporan Masuk Terbaru</p>
             <p class="text-xs text-gray-400 mt-0.5">Kelola & verifikasi tingkat kerusakan</p>
         </div>
-        <a href="{{ route('admin.laporan-masuk') }}"
+        <a href="{{ route('admin.laporan-masuk.index') }}"
            class="text-xs font-semibold text-emerald-600 hover:text-emerald-800 flex items-center gap-1">
             Lihat Semua <i class="fa-solid fa-arrow-right"></i>
         </a>
@@ -133,9 +137,11 @@
                     </td>
                     <td>
                         <div class="font-medium text-gray-800">{{ $laporan->nama_barang }}</div>
-                        <div class="text-xs text-gray-400">{{ $laporan->kategori }}</div>
+                        <div class="text-xs text-gray-400">{{ ucfirst($laporan->jenis_barang ?? '-') }}</div>
                     </td>
-                    <td class="text-gray-600 text-sm">{{ $laporan->lokasi }}</td>
+                    <td class="text-gray-600 text-sm">
+                        {{ ucwords(str_replace('_', ' ', $laporan->tempat_label ?? $laporan->tempat_utama ?? '-')) }}
+                    </td>
                     <td>
                         @if($laporan->tingkat_kerusakan === 'tinggi')
                             <span class="badge badge-tinggi"><i class="fa-solid fa-circle-exclamation"></i> Tinggi</span>
@@ -150,8 +156,10 @@
                             <span class="badge badge-pending">Pending</span>
                         @elseif($laporan->status === 'diproses')
                             <span class="badge badge-diproses">Diproses</span>
-                        @else
+                        @elseif($laporan->status === 'selesai')
                             <span class="badge badge-selesai">Selesai</span>
+                        @else
+                            <span class="badge badge-pending">Menunggu</span>
                         @endif
                     </td>
                     <td class="text-xs text-gray-500">
@@ -182,6 +190,7 @@
 
 @push('scripts')
 <script>
+// ── Grafik Batang: Biru Elektrik & Ungu ──
 const ctx1 = document.getElementById('chartBulanan').getContext('2d');
 new Chart(ctx1, {
     type: 'bar',
@@ -190,18 +199,18 @@ new Chart(ctx1, {
         datasets: [
             {
                 label: 'Sudah Diverifikasi',
-                data: {{ json_encode($chartVerifikasi ?? [0,0,0,0,0,0,0,0,0,0,0,0]) }},
-                backgroundColor: '#10b98133',
-                borderColor: '#059669',
-                borderWidth: 2,
+                data: {!! json_encode($chartVerifikasi ?? array_fill(0, 12, 0)) !!},
+                backgroundColor: 'rgba(59, 130, 246, 0.25)',
+                borderColor: '#2563eb',
+                borderWidth: 2.5,
                 borderRadius: 6,
             },
             {
                 label: 'Belum Diverifikasi',
-                data: {{ json_encode($chartBelumVerifikasi ?? [0,0,0,0,0,0,0,0,0,0,0,0]) }},
-                backgroundColor: '#f59e0b33',
-                borderColor: '#f59e0b',
-                borderWidth: 2,
+                data: {!! json_encode($chartBelumVerifikasi ?? array_fill(0, 12, 0)) !!},
+                backgroundColor: 'rgba(139, 92, 246, 0.25)',
+                borderColor: '#7c3aed',
+                borderWidth: 2.5,
                 borderRadius: 6,
             }
         ]
@@ -209,19 +218,35 @@ new Chart(ctx1, {
     options: {
         responsive: true,
         plugins: {
-            legend: { position: 'top', labels: { font: { family: 'Plus Jakarta Sans', size: 12 }, boxWidth: 12, borderRadius: 4 } },
+            legend: {
+                position: 'top',
+                labels: {
+                    font: { family: 'Plus Jakarta Sans', size: 12 },
+                    boxWidth: 12,
+                    borderRadius: 4,
+                    color: '#374151'
+                }
+            },
         },
         scales: {
-            y: { beginAtZero: true, grid: { color: '#f1f5f9' }, ticks: { font: { family: 'Plus Jakarta Sans' } } },
-            x: { grid: { display: false }, ticks: { font: { family: 'Plus Jakarta Sans' } } }
+            y: {
+                beginAtZero: true,
+                grid: { color: '#f1f5f9' },
+                ticks: { font: { family: 'Plus Jakarta Sans' }, color: '#6b7280' }
+            },
+            x: {
+                grid: { display: false },
+                ticks: { font: { family: 'Plus Jakarta Sans' }, color: '#6b7280' }
+            }
         }
     }
 });
 
+// ── Grafik Donut: Dominan Kerusakan ──
 const ctx2 = document.getElementById('chartDominan').getContext('2d');
-const dominanLabels = {{ json_encode($dominanLabels ?? ['AC', 'Proyektor', 'Kursi', 'Lampu', 'Komputer']) }};
-const dominanData   = {{ json_encode($dominanData   ?? [32, 25, 18, 15, 10]) }};
-const colors = ['#059669','#10b981','#34d399','#6ee7b7','#a7f3d0'];
+const dominanLabels = {!! json_encode(!empty($dominanLabels) ? $dominanLabels : ['Belum ada data']) !!};
+const dominanData   = {!! json_encode(!empty($dominanData) ? $dominanData : [1]) !!};
+const colors = ['#2563eb', '#7c3aed', '#06b6d4', '#f59e0b', '#ec4899'];
 
 new Chart(ctx2, {
     type: 'doughnut',
@@ -242,9 +267,9 @@ new Chart(ctx2, {
 });
 
 const legend = document.getElementById('legend-dominan');
+const total = dominanData.reduce((a, b) => a + b, 0);
 dominanLabels.forEach((label, i) => {
-    const total = dominanData.reduce((a, b) => a + b, 0);
-    const pct = ((dominanData[i] / total) * 100).toFixed(0);
+    const pct = total > 0 ? ((dominanData[i] / total) * 100).toFixed(0) : 0;
     legend.innerHTML += `
         <div class="flex items-center justify-between text-xs">
             <div class="flex items-center gap-2">

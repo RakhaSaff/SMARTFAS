@@ -242,7 +242,7 @@ body { font-family: 'DM Sans', sans-serif; background: #f0f5f2; }
     {{-- INTRO --}}
     <div class="intro-card anim-2">
         <p>
-            SMARTFAS Saintek merupakan aplikasi berbasis web yang dirancang untuk membantu proses pelaporan dan penanganan kerusakan fasilitas di lingkungan Fakultas Sains dan Teknologi UIN Sunan Ampel Surabaya secara lebih cepat, terstruktur, dan terdokumentasi dengan baik. Aplikasi ini memungkinkan mahasiswa maupun dosen melaporkan kerusakan fasilitas secara langsung melalui smartphone dengan mengunggah foto, memilih kategori kerusakan, serta menentukan lokasi fasilitas yang mengalami kerusakan.
+            SMARTFAS Saintek merupakan aplikasi berbasis web yang dirancang untuk membantu proses pelaporan dan penanganan kerusakan fasilitas di lingkungan Fakultas Sains dan Teknologi UIN Sunan Ampel Surabaya secara lebih cepat, terstruktur, dan terdokumentasi dengan baik. Aplikasi ini memungkinkan mahasiswa melaporkan kerusakan fasilitas secara langsung melalui smartphone dengan mengunggah foto, memilih kategori kerusakan, serta menentukan lokasi fasilitas yang mengalami kerusakan.
         </p>
     </div>
 
@@ -252,7 +252,7 @@ body { font-family: 'DM Sans', sans-serif; background: #f0f5f2; }
             <div class="flow-step-num step-blue">1</div>
             <div class="flow-meta">
                 <h3>Pengguna Mengisi & Mengirim Laporan</h3>
-                <p>Mahasiswa / Dosen</p>
+                <p>Mahasiswa</p>
             </div>
         </div>
         <div class="flow-card-body">
@@ -260,13 +260,13 @@ body { font-family: 'DM Sans', sans-serif; background: #f0f5f2; }
                 Proses kerja aplikasi dimulai ketika pengguna menemukan fasilitas yang rusak, kemudian membuka aplikasi SMARTFAS dan mengisi form laporan yang tersedia. Setelah laporan dikirim, data akan tersimpan secara otomatis ke dalam database sistem.
             </p>
             <div class="flow-trail">
-                <span class="trail-node node-blue">👤 Pengguna (Mhs/Dosen)</span>
+                <span class="trail-node node-blue"> Pengguna (Mahasiswa)</span>
                 <span class="trail-arrow">→</span>
-                <span class="trail-node node-blue">📝 Mengisi Form Laporan</span>
+                <span class="trail-node node-blue"> Mengisi Form Laporan</span>
                 <span class="trail-arrow">→</span>
-                <span class="trail-node node-blue">📷 Mengunggah Foto Kerusakan</span>
+                <span class="trail-node node-blue"> Mengunggah Foto Kerusakan</span>
                 <span class="trail-arrow">→</span>
-                <span class="trail-node node-blue">💾 Data Tersimpan dalam Database</span>
+                <span class="trail-node node-blue"> Data Tersimpan dalam Database</span>
             </div>
         </div>
     </div>
@@ -285,11 +285,11 @@ body { font-family: 'DM Sans', sans-serif; background: #f0f5f2; }
                 Laporan yang masuk akan dianalisis oleh sistem untuk menentukan tingkat prioritas penanganan dengan bantuan teknologi AI. Hasil analisis tersebut akan membantu stakeholder dalam menentukan laporan mana yang harus segera ditangani.
             </p>
             <div class="flow-trail">
-                <span class="trail-node node-purple">💾 Database Laporan</span>
+                <span class="trail-node node-purple"> Database Laporan</span>
                 <span class="trail-arrow">→</span>
-                <span class="trail-node node-purple">🤖 Analisis Prioritas (AI)</span>
+                <span class="trail-node node-purple"> Analisis Prioritas (AI)</span>
                 <span class="trail-arrow">→</span>
-                <span class="trail-node node-purple">🎯 Penentuan Tingkat Prioritas</span>
+                <span class="trail-node node-purple"> Penentuan Tingkat Prioritas</span>
             </div>
         </div>
     </div>
@@ -308,15 +308,15 @@ body { font-family: 'DM Sans', sans-serif; background: #f0f5f2; }
                 Stakeholder dapat memantau laporan melalui dashboard monitoring dan menugaskan teknisi untuk melakukan perbaikan fasilitas yang rusak. Selama proses perbaikan berlangsung, teknisi dapat memperbarui status pekerjaan pada sistem sehingga progres perbaikan dapat dipantau secara transparan.
             </p>
             <div class="flow-trail">
-                <span class="trail-node node-orange">📊 Dashboard Stakeholder</span>
+                <span class="trail-node node-orange"> Dashboard Stakeholder</span>
                 <span class="trail-arrow">→</span>
-                <span class="trail-node node-orange">👁️ Monitoring Laporan</span>
+                <span class="trail-node node-orange"> Monitoring Laporan</span>
                 <span class="trail-arrow">→</span>
-                <span class="trail-node node-orange">👷 Penugasan Teknisi</span>
+                <span class="trail-node node-orange"> Penugasan Teknisi</span>
                 <span class="trail-arrow">→</span>
-                <span class="trail-node node-orange">🔧 Proses Perbaikan</span>
+                <span class="trail-node node-orange"> Proses Perbaikan</span>
                 <span class="trail-arrow">→</span>
-                <span class="trail-node node-orange">🔄 Update Status</span>
+                <span class="trail-node node-orange"> Update Status</span>
             </div>
         </div>
     </div>
@@ -335,11 +335,11 @@ body { font-family: 'DM Sans', sans-serif; background: #f0f5f2; }
                 Setelah perbaikan selesai dilakukan, seluruh data aktivitas akan tersimpan dalam database sebagai arsip serta bahan laporan bagi pimpinan fakultas untuk melakukan monitoring dan evaluasi pengelolaan fasilitas.
             </p>
             <div class="flow-trail">
-                <span class="trail-node node-green">✅ Perbaikan Selesai</span>
+                <span class="trail-node node-green"> Perbaikan Selesai</span>
                 <span class="trail-arrow">→</span>
-                <span class="trail-node node-green">💾 Data Tersimpan dalam Database</span>
+                <span class="trail-node node-green"> Data Tersimpan dalam Database</span>
                 <span class="trail-arrow">→</span>
-                <span class="trail-node node-green">📋 Rekapitulasi Laporan Fasilitas</span>
+                <span class="trail-node node-green"> Rekapitulasi Laporan Fasilitas</span>
             </div>
         </div>
     </div>
